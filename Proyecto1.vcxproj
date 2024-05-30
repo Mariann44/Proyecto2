@@ -133,6 +133,7 @@
     <ClInclude Include="ArrayList.h" />
     <ClInclude Include="DLinkedList.h" />
     <ClInclude Include="DNode.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Trie.h" />
     <ClInclude Include="TrieNode.h" />

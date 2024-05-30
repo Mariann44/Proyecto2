@@ -55,9 +55,13 @@ public:
 		clear();
 		delete root;
 	}
-	void insert(string word) {
-		if (containsWord(word))
-			throw runtime_error("Duplicated word.");
+	void insert(string word, int line) {
+		if (containsWord(word)) {
+			TrieNode* current = findNode(word);
+			current->addNumLine(line);
+			return;
+
+		}
 		TrieNode* current = root;
 		for (unsigned int i = 0; i < word.size(); i++) {
 			current->prefixCount++;
@@ -67,6 +71,8 @@ public:
 		}
 		current->prefixCount++;
 		current->isFinal = true;
+		current->addNumLine(line);
+
 	}
 	bool containsWord(string word) {
 		TrieNode* current = findNode(word);
