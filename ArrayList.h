@@ -27,6 +27,7 @@
 #include <stdexcept>
 #include <iostream>
 #include "List.h"
+using std::wcout;
 
 using std::runtime_error;
 using std::cout;
@@ -141,7 +142,7 @@ public:
 	void print() {
 		cout << "[ ";
 		for (int i = 0; i < size; i++)
-			cout << elements[i] << " ";
+			wcout << elements[i] << " ";
 		cout << "]" << endl;
 	}
 

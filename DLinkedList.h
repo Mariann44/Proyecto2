@@ -7,6 +7,7 @@
 using std::runtime_error;
 using std::cout;
 using std::endl;
+using std::wcout;
 
 template <typename E>
 class DLinkedList :  public List<E>
@@ -115,7 +116,7 @@ public:
 		cout << "[ ";
 		DNode<E>* temp = head->next;
 		while (temp != tail) {
-			cout << temp->element << " ";
+			wcout << temp->element << " ";
 			temp = temp->next;
 		}
 		cout << "]" << endl;
