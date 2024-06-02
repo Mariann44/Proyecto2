@@ -172,6 +172,26 @@ public:
 		return words;
 	}
 
+	void getWordsAux(TrieNode* current, string prefix, ArrayList<string>* words) {
+		if (current->isFinal)
+			words->append(prefix);
+		List<char>* children = current->getChildren();
+		for (children->goToStart(); !children->atEnd(); children->next()) {
+			char c = children->getElement();
+			getWordsAux(current->getChild(c), prefix + c, words);
+		}
+		delete children;
+	}
+
+
+
+	ArrayList<string>* getWords() {
+		ArrayList<string>* words = new ArrayList<string>();
+		getWordsAux(root, "", words);
+		return words;
+	}
+
+
 
 
 };

@@ -15,6 +15,8 @@
 #include "Trie.h"
 #include <limits>
 #include "MinHeap.h" 
+#include "MaxHeap.h" 
+
 
 using std::cout;
 using std::endl;
@@ -27,6 +29,8 @@ using std::wcout;
 
 Trie trie;
 ArrayList<wstring> palabras;
+ArrayList<string> ignorar;
+MaxHeap<int, string> top;
 void menububu();
 
 
@@ -59,6 +63,20 @@ string conversor(wstring palabra) {
 	std::string palabra_str = converter.to_bytes(palabra);
 	return palabra_str;
 }
+
+void rellenarMaxHeap(ArrayList<string> *palabras) {
+	palabras->goToStart();
+	while (!palabras->atEnd()) {
+		std::pair<int, string> par; 
+		par.first = trie.cantidadAparicion(palabras->getElement());
+		par.second = palabras->getElement();
+		top.insert(par);
+		palabras->next();
+	}
+	top.print();
+
+}
+
 
 void imprimirLias(ArrayList<int>* lineas) {
 	lineas->goToStart();
@@ -120,16 +138,14 @@ void consultarPorLargo(int largo) {
 
 
 
-
-
 void menububu() {
 	cout << "Elija una opcion" << endl;
-	cout << "a) Consulta por prefijo" << endl;
+	cout << "a) Consulta por prefijo a;lsdkjf;alskfj" << endl;
 	cout << "b) Buscar palabra" << endl;
 	cout << "c) Buscar por cantidad de letras" << endl;
 	cout << "d) Palabras mas utilizadas" << endl;
 	cout << "e) Cargar otro archivo" << endl;
-	cout << "f) Salir" << endl;
+	cout << "f) BOLIVIANO" << endl;
 
 	string opcion;
 	getline(cin, opcion);
@@ -180,6 +196,29 @@ wchar_t aMinuscula(wchar_t vocalTildada) {
 		return std::tolower(static_cast<unsigned char>(vocalTildada));
 }
 
+void menuTop() {
+	cout << "Elija una opcion" << endl;
+	cout << "a) Ver Top" << endl;
+	cout << "b) Salir" << endl;
+
+	string opcion;
+	getline(cin, opcion);
+	if (opcion == "a") {
+
+
+	}
+	else if (opcion == "b") {
+		cout << "Adios poposao" << endl;
+		menububu();
+	}
+	else {
+		cout << "Opcion invalida" << endl;
+		menuTop();
+	}
+
+}
+
+
 
 void separarPalabras(wstring linea, int numDeLinea) {
 	setlocale(LC_ALL, "es_ES.utf8");
@@ -216,6 +255,28 @@ int main()
 	setlocale(LC_ALL, "spanish");
 	SetConsoleCP(1252);
 	SetConsoleOutputCP(1252);
+	
+	string rutaArchivoIgnorado = "C:\\Users\\Lenovo\\Desktop\\Ignorar.txt";
+	std::ifstream archivoIgnorado(rutaArchivoIgnorado.c_str());
+
+	if (!archivoIgnorado.is_open()) {
+		cout << "No se pudo abrir el archivo o no existe." << endl;
+	}
+	else {
+		if (!ignorar.isEmpty()) {
+			ignorar.clear();
+		}
+		string linea;
+		while (getline(archivoIgnorado, linea)) {
+			if (linea.size() > 0)
+				ignorar.append(linea);
+		}
+		archivoIgnorado.close();
+	}
+
+
+	
+
 
     wcout << "Bienvenido al proyecto de Indización de texto con Tries" << endl;
     wcout << "Por favor metame la ruta del archivo ANSI" << endl;
@@ -253,8 +314,8 @@ int main()
 		separarPalabras(palabras.getElement(), palabras.getPos());
 		palabras.next();
 	}
-	
-	trie.print();
+
+	rellenarMaxHeap(trie.getWords());
 	menububu();
 
 	return 0;
