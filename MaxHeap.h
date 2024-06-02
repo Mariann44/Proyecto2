@@ -20,18 +20,20 @@ private:
 	void operator =(const MaxHeap<E>& other) {}
 
 	void siftUp(int pos) {
-		while (pos != 0 && elements[pos] < elements[parent(pos)]) {
+		while (pos != 0 && elements[pos] > elements[parent(pos)]) {
 			swap(pos, parent(pos));
 			pos = parent(pos);
 		}
 	}
+
 	void siftDown(int pos) {
-		while (!isLeaf(pos) && elements[pos] > elements[minChild(pos)]) {
-			int mChild = minChild(pos);
+		while (!isLeaf(pos) && elements[pos] < elements[maxChild(pos)]) {
+			int mChild = maxChild(pos);
 			swap(pos, mChild);
 			pos = mChild;
 		}
 	}
+
 	int parent(int pos) {
 		return (pos - 1) / 2;
 	}
@@ -41,13 +43,13 @@ private:
 	int rightChild(int pos) {
 		return 2 * pos + 2;
 	}
-	int minChild(int pos) {
-		if (rightChild(pos) >= size
-			|| elements[leftChild(pos)] < elements[rightChild(pos)]) {
+	int maxChild(int pos) {
+		if (rightChild(pos) >= size || elements[leftChild(pos)] > elements[rightChild(pos)]) {
 			return leftChild(pos);
 		}
 		return rightChild(pos);
 	}
+
 	bool isLeaf(int pos) {
 		return leftChild(pos) >= size;
 	}
