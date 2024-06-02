@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include "TrieNode.h"
 #include "DLinkedList.h"
+#include "ArrayList.h"
+#include "MinHeap.h"
 
 using std::string;
 using std::cout;
@@ -127,5 +129,50 @@ public:
 		words->print();
 		delete words;
 	}
+
+	void printLines(string word) {
+		TrieNode* current = findNode(word);
+		if (current == nullptr) {
+			cout << "Word not found." << endl;
+			return;
+		}
+		current->numsLine->print();
+	}
+
+	int cantidadAparicion(string word) {
+		TrieNode* current = findNode(word);
+		if (current == nullptr) {
+			return 0;
+		}
+		return current->numsLine->getSize();
+	}
+
+	ArrayList<int>* getLines(string word) {
+		TrieNode* current = findNode(word);
+		if (current == nullptr) {
+			return nullptr;
+		}
+		return current->numsLine;
+	}
+
+	void getMatchesWithLengthAux(TrieNode* current, string prefix, MinHeap<string>* words, int length) {
+		if (current->isFinal && prefix.size() == length)
+			words->insert(prefix);
+		List<char>* children = current->getChildren();
+		for (children->goToStart(); !children->atEnd(); children->next()) {
+			char c = children->getElement();
+			getMatchesWithLengthAux(current->getChild(c), prefix + c, words, length);
+		}
+		delete children;
+	}
+
+	MinHeap<string>* getMatchesWithLength(int length) {
+		MinHeap<string>* words = new MinHeap<string>();
+		getMatchesWithLengthAux(root, "", words, length);
+		return words;
+	}
+
+
+
 };
 

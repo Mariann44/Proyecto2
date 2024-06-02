@@ -116,7 +116,7 @@ public:
 		cout << "[ ";
 		DNode<E>* temp = head->next;
 		while (temp != tail) {
-			wcout << temp->element << " ";
+			cout << temp->element << " ";
 			temp = temp->next;
 		}
 		cout << "]" << endl;

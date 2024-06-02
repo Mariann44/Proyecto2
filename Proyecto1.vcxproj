@@ -135,6 +135,8 @@
     <ClInclude Include="DNode.h" />
     <ClInclude Include="HashTable.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="MaxHeap.h" />
+    <ClInclude Include="MinHeap.h" />
     <ClInclude Include="Trie.h" />
     <ClInclude Include="TrieNode.h" />
   </ItemGroup>
