@@ -15,6 +15,7 @@
 #include "Trie.h"
 #include <limits>
 #include "MinHeap.h" 
+#include "MaxHeap.h"
 
 using std::cout;
 using std::endl;
@@ -26,7 +27,10 @@ using std::wstring;
 using std::wcout;
 
 Trie trie;
+ArrayList<string> ignorar;
 ArrayList<wstring> palabras;
+ArrayList<string> ignorar;
+MaxHeap<int, string> top;
 void menububu();
 
 
@@ -52,6 +56,19 @@ int StringtoInt(string str)
 	
 	}
 	
+}
+
+void rellenarMaxHeap(ArrayList<string> *palabras) {
+	palabras->goToStart();
+	while (!palabras->atEnd()) {
+		std::pair<int, string> par; 
+		par.first = trie.cantidadAparicion(palabras->getElement());
+		par.second = palabras->getElement();
+		top.insert(par);
+		palabras->next();
+	}
+	top.print();
+
 }
 
 string conversor(wstring palabra) {
@@ -216,8 +233,30 @@ int main()
 	setlocale(LC_ALL, "spanish");
 	SetConsoleCP(1252);
 	SetConsoleOutputCP(1252);
+	
 
-    wcout << "Bienvenido al proyecto de Indización de texto con Tries" << endl;
+	//cout << "PUNTO 1" << endl;
+
+	string rutaArchivoIgnorado = "C:\\Users\\Lenovo\\Desktop\\Ignorar.txt";
+	std::ifstream archivoIgnorado(rutaArchivoIgnorado.c_str());
+
+	//cout << "PUNTO 2" << endl;
+	if (!archivoIgnorado.is_open()) {
+		cout << "No se pudo abrir el archivo o no existe." << endl;
+	}
+	else {
+		if (!ignorar.isEmpty()) {
+			ignorar.clear();
+		}
+		string linea;
+		while (getline(archivoIgnorado, linea)) {
+			if (linea.size() > 0)
+				ignorar.append(linea);
+		}
+		archivoIgnorado.close();
+	}
+
+    wcout << "Bienvenido al proyecto de Indización de texto con Trais" << endl;
     wcout << "Por favor metame la ruta del archivo ANSI" << endl;
 
     string ruta;

@@ -1,33 +1,27 @@
-#pragma once
-#define DEFAULT_MAX_SIZE 1024
-
-#include <stdexcept>
-#include <iostream>
-
-using std::runtime_error;
 using std::cout;
 using std::endl;
 
-template <typename E>
+template <typename K, typename V>
 class MaxHeap
 {
 private:
-	E* elements;
+	std::pair<K, V>* elements;
+
 	int max;
 	int size;
 
-	MaxHeap(const MaxHeap<E>& other) {}
-	void operator =(const MaxHeap<E>& other) {}
+	MaxHeap(const MaxHeap<K, V>& other) {}
+	void operator =(const MaxHeap<K, V>& other) {}
 
 	void siftUp(int pos) {
-		while (pos != 0 && elements[pos] > elements[parent(pos)]) {
+		while (pos != 0 && elements[pos].first > elements[parent(pos)].first) {
 			swap(pos, parent(pos));
 			pos = parent(pos);
 		}
 	}
 
 	void siftDown(int pos) {
-		while (!isLeaf(pos) && elements[pos] < elements[maxChild(pos)]) {
+		while (!isLeaf(pos) && elements[pos].first < elements[maxChild(pos)].first) {
 			int mChild = maxChild(pos);
 			swap(pos, mChild);
 			pos = mChild;
@@ -44,7 +38,7 @@ private:
 		return 2 * pos + 2;
 	}
 	int maxChild(int pos) {
-		if (rightChild(pos) >= size || elements[leftChild(pos)] > elements[rightChild(pos)]) {
+		if (rightChild(pos) >= size || elements[leftChild(pos)].first > elements[rightChild(pos)].first) {
 			return leftChild(pos);
 		}
 		return rightChild(pos);
@@ -53,39 +47,40 @@ private:
 	bool isLeaf(int pos) {
 		return leftChild(pos) >= size;
 	}
+
 	void swap(int pos1, int pos2) {
-		E temp = elements[pos1];
+		std::pair<K, V> temp = elements[pos1];
 		elements[pos1] = elements[pos2];
 		elements[pos2] = temp;
 	}
 
 public:
 	MaxHeap(int max = DEFAULT_MAX_SIZE) {
-		elements = new E[max];
+		elements = new std::pair<K, V>[max];
 		size = 0;
 		this->max = max;
 	}
 	~MaxHeap() {
 		delete[] elements;
 	}
-	void insert(E element) {
+	void insert(std::pair<K, V> element) {
 		if (size == max)
 			throw runtime_error("Heap is full.");
 		elements[size] = element;
 		size++;
 		siftUp(size - 1);
 	}
-	E first() {
+	std::pair<K, V> first() {
 		if (size == 0)
 			throw runtime_error("Heap is empty.");
 		return elements[0];
 	}
-	E removeFirst() {
+	std::pair<K,V> removeFirst() {
 		if (size == 0)
 			throw runtime_error("Heap is empty.");
 		return remove(0);
 	}
-	E remove(int pos) {
+	std::pair<K,V> remove(int pos) {
 		if (size == 0)
 			throw runtime_error("Heap is empty.");
 		if (pos < 0 || pos >= size)
@@ -107,7 +102,7 @@ public:
 	void print() {
 		cout << "[ ";
 		for (int i = 0; i < size; i++) {
-			cout << elements[i] << " ";
+			cout << "(" << elements[i].first << ", " << elements[i].second << ") ";
 		}
 		cout << "]" << endl;
 	}
