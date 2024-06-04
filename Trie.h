@@ -172,6 +172,11 @@ public:
 		return words;
 	}
 
+	DLinkedList<string>* getWords() {
+		DLinkedList<string>* words = new DLinkedList<string>();
+		getMatchesAux(root, "", words);
+		return words;
+	}
 
 
 };

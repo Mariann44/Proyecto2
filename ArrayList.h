@@ -140,10 +140,10 @@ public:
 	}
 
 	void print() {
-		cout << "[ ";
+		wcout << "[ ";
 		for (int i = 0; i < size; i++)
 			wcout << elements[i] << " ";
-		cout << "]" << endl;
+		wcout << "]" << endl;
 	}
 
 	void printPuntero() {

@@ -1,6 +1,6 @@
 // Proyecto1.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
 //
-
+#define NOMINMAX
 
 #include <Windows.h>
 #include <string>
@@ -16,6 +16,7 @@
 #include <limits>
 #include "MinHeap.h" 
 #include "MaxHeap.h"
+#include "KVPair.h"
 
 using std::cout;
 using std::endl;
@@ -27,10 +28,10 @@ using std::wstring;
 using std::wcout;
 
 Trie trie;
-ArrayList<string> ignorar;
 ArrayList<wstring> palabras;
-ArrayList<string> ignorar;
+ArrayList<wstring> ignorar;
 MaxHeap<int, string> top;
+
 void menububu();
 
 
@@ -41,7 +42,7 @@ int StringtoInt(string str)
 		return num;
 	}
 	catch (const std::invalid_argument& ia) {
-		cout << "Usted no digito un nÃºmero. \n";
+		cout << "Usted no digito un número. \n";
 		menububu();
 		
 	}
@@ -58,23 +59,23 @@ int StringtoInt(string str)
 	
 }
 
-void rellenarMaxHeap(ArrayList<string> *palabras) {
-	palabras->goToStart();
-	while (!palabras->atEnd()) {
-		std::pair<int, string> par; 
-		par.first = trie.cantidadAparicion(palabras->getElement());
-		par.second = palabras->getElement();
-		top.insert(par);
-		palabras->next();
-	}
-	top.print();
-
-}
-
 string conversor(wstring palabra) {
 	std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
 	std::string palabra_str = converter.to_bytes(palabra);
 	return palabra_str;
+}
+
+void rellenarMaxHeap(DLinkedList<string> *palabras1) {
+    palabras1->goToStart();
+    while (!palabras1->atEnd()) {
+		int cantidad = trie.cantidadAparicion(palabras1->getElement());
+		string palabra = palabras1->getElement();
+		KVPair<int, string> kv(cantidad, palabra);
+		top.insert(kv);
+        palabras1->next();
+    }
+    top.print();
+
 }
 
 void imprimirLias(ArrayList<int>* lineas) {
@@ -236,9 +237,10 @@ int main()
 	
 
 	//cout << "PUNTO 1" << endl;
-
+	
 	string rutaArchivoIgnorado = "C:\\Users\\Lenovo\\Desktop\\Ignorar.txt";
-	std::ifstream archivoIgnorado(rutaArchivoIgnorado.c_str());
+	std::wifstream archivoIgnorado(rutaArchivoIgnorado);
+	archivoIgnorado.imbue(std::locale());
 
 	//cout << "PUNTO 2" << endl;
 	if (!archivoIgnorado.is_open()) {
@@ -248,13 +250,14 @@ int main()
 		if (!ignorar.isEmpty()) {
 			ignorar.clear();
 		}
-		string linea;
+		wstring linea;
 		while (getline(archivoIgnorado, linea)) {
 			if (linea.size() > 0)
 				ignorar.append(linea);
 		}
 		archivoIgnorado.close();
 	}
+	
 
     wcout << "Bienvenido al proyecto de Indización de texto con Trais" << endl;
     wcout << "Por favor metame la ruta del archivo ANSI" << endl;
@@ -294,6 +297,9 @@ int main()
 	}
 	
 	trie.print();
+	cout << "" << endl;
+	rellenarMaxHeap(trie.getWords());
+
 	menububu();
 
 	return 0;
