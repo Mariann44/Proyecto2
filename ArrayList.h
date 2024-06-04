@@ -135,16 +135,25 @@ public:
 		return pos;
 	}
 
+	bool contains(E element) {
+		for (int i = 0; i < size; i++)
+			if (elements[i] == element)
+				return true;
+		return false;
+	}
+
+
 	bool isEmpty() {
 		return size == 0;
 	}
-
+	
 	void print() {
-		cout << "[ ";
+		std::wcout << L"[ ";
 		for (int i = 0; i < size; i++)
-			wcout << elements[i] << " ";
-		cout << "]" << endl;
+			std::wcout << elements[i] << L" ";
+		std::wcout << L"]" << std::endl;
 	}
+
 
 	void printPuntero() {
 		cout << "[ ";

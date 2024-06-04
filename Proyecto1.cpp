@@ -1,7 +1,8 @@
 // Proyecto1.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
 //
 
-
+#define NOMINMAX
+	
 #include <Windows.h>
 #include <string>
 #include <fstream>
@@ -64,14 +65,14 @@ string conversor(wstring palabra) {
 	return palabra_str;
 }
 
-void rellenarMaxHeap(ArrayList<string> *palabras) {
-	palabras->goToStart();
-	while (!palabras->atEnd()) {
+void rellenarMaxHeap(ArrayList<string> *palabras1) {
+	palabras1->goToStart();
+	while (!palabras1->atEnd()) {
 		std::pair<int, string> par; 
-		par.first = trie.cantidadAparicion(palabras->getElement());
-		par.second = palabras->getElement();
+		par.first = trie.cantidadAparicion(palabras1->getElement());
+		par.second = palabras1->getElement();
 		top.insert(par);
-		palabras->next();
+		palabras1->next();
 	}
 	top.print();
 
@@ -104,7 +105,7 @@ void consultarPrefijo(string prefijo){
 		palabrasL->next();
 	}
 	delete palabrasL;
-}
+}	
 
 void consultarPalabra(string palabra) {
 	if (trie.containsWord(palabra)) {
@@ -139,8 +140,8 @@ void consultarPorLargo(int largo) {
 
 
 void menububu() {
-	cout << "Elija una opcion" << endl;
-	cout << "a) Consulta por prefijo a;lsdkjf;alskfj" << endl;
+	cout << "SILVIO RODRIGUEZ" << endl;
+	cout << "a) Consulta por prefijo " << endl;
 	cout << "b) Buscar palabra" << endl;
 	cout << "c) Buscar por cantidad de letras" << endl;
 	cout << "d) Palabras mas utilizadas" << endl;
@@ -204,7 +205,7 @@ void menuTop() {
 	string opcion;
 	getline(cin, opcion);
 	if (opcion == "a") {
-
+		rellenarMaxHeap(trie.getWords());
 
 	}
 	else if (opcion == "b") {
@@ -252,13 +253,17 @@ void separarPalabras(wstring linea, int numDeLinea) {
 
 int main()
 {
+	wcout << "PUNTO 0" << endl;
 	setlocale(LC_ALL, "spanish");
 	SetConsoleCP(1252);
 	SetConsoleOutputCP(1252);
+
+	cout << "PUNTO 1" << endl;
 	
 	string rutaArchivoIgnorado = "C:\\Users\\Lenovo\\Desktop\\Ignorar.txt";
 	std::ifstream archivoIgnorado(rutaArchivoIgnorado.c_str());
 
+	cout << "PUNTO 2" << endl;
 	if (!archivoIgnorado.is_open()) {
 		cout << "No se pudo abrir el archivo o no existe." << endl;
 	}
@@ -273,12 +278,12 @@ int main()
 		}
 		archivoIgnorado.close();
 	}
-
+	cout << "PUNTO 3" << endl;
 
 	
 
 
-    wcout << "Bienvenido al proyecto de Indización de texto con Tries" << endl;
+    wcout << "Bienvenido al proyecto de Indización de texto con trais" << endl;
     wcout << "Por favor metame la ruta del archivo ANSI" << endl;
 
     string ruta;
@@ -315,7 +320,8 @@ int main()
 		palabras.next();
 	}
 
-	rellenarMaxHeap(trie.getWords());
+	
+
 	menububu();
 
 	return 0;
