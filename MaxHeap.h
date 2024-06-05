@@ -64,6 +64,8 @@ public:
     ~MaxHeap() {
         delete[] elements;
     }
+
+
     void insert(KVPair<K, V> element) {
         if (size == max)
             throw runtime_error("Heap is full.");

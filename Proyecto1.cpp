@@ -80,15 +80,22 @@ void rellenarMaxHeap(DLinkedList<wstring> *palabras1) {
 		top.insert(kv);
         palabras1->next();
     }
-    top.print();
+   
 
 }
 
 void sacarTop(int i) {
-
+	top.clear();
+	rellenarMaxHeap(trie.getWords());
 	for (int j = 0; j < i; j++) {
 		KVPair<int, wstring> kv = top.removeFirst();
-		wcout << "La palabra " << kv.getValue() << " se repite " << kv.getKey() << " veces." << endl;
+		wstring palabra = kv.getValue();
+		if (!ignorar.contains(palabra)) {
+			wcout << "La palabra " << kv.getValue() << " se repite " << kv.getKey() << " veces." << endl;
+		}
+		else {
+			j--;
+		}
 	}
 }
 
@@ -152,8 +159,31 @@ void consultarPorLargo(int largo) {
 	delete words;
 }
 
+void menuTop() {
+	cout << "Elija una opcion" << endl;
+	cout << "a) Ver Top" << endl;
+	cout << "b) Salir" << endl;
 
+	string opcion;
+	getline(cin, opcion);
+	if (opcion == "a") {
+		cout << "Ingrese la cantidad de palabras que desea ver" << endl;
+		string cantidad;
+		getline(cin, cantidad);
+		sacarTop(StringtoInt(cantidad));
+		menuTop();
 
+	}
+	else if (opcion == "b") {
+		cout << "Adios poposao" << endl;
+		menububu();
+	}
+	else {
+		cout << "Opcion invalida" << endl;
+		menuTop();
+	}
+
+}
 
 
 void menububu() {
@@ -193,7 +223,7 @@ void menububu() {
 
 	}
 	else if (opcion == "d") {
-		return;
+		menuTop();
 	}
 	else if (opcion == "e") {
 		cout << "Ingrese la ruta del archivo" << endl;
@@ -213,6 +243,7 @@ void menububu() {
 wchar_t aMinuscula(wchar_t vocalTildada) {
 		return std::tolower(static_cast<unsigned char>(vocalTildada));
 }
+
 
 
 void separarPalabras(wstring linea, int numDeLinea) {
@@ -313,10 +344,7 @@ int main()
 		separarPalabras(palabras.getElement(), palabras.getPos());
 		palabras.next();
 	}
-	
-	trie.print();
 	cout << "" << endl;
-	rellenarMaxHeap(trie.getWords());
 
 	menububu();
 

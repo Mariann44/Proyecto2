@@ -160,6 +160,18 @@ public:
 		cout << "]" << endl;
 	} 
 
+	bool contains(E element) {
+		goToStart();
+		while (!atEnd()) {
+			if (element == getElement()) {
+				return true;
+			}
+			next();
+		}
+		return false;
+	}
+
+
 
 };
 
