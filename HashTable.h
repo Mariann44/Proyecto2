@@ -10,6 +10,7 @@
 #include "KVPair.h"
 #include "Dictionary.h"
 
+using std::wcout;
 using std::runtime_error;
 using std::cout;
 using std::endl;
@@ -206,15 +207,15 @@ public:
         return size;
     }
     void print() {
-        cout << "[";
+        wcout << "[";
         for (int i = 0; i < max; i++) {
             buckets[i].goToStart();
             while (!buckets[i].atEnd()) {
-                cout << buckets[i].getElement() << " ";
+                wcout << buckets[i].getElement() << " ";
                 buckets[i].next();
             }
         }
-        cout << "]" << endl;
+        wcout << "]" << endl;
     }
 };
 

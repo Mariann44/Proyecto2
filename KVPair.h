@@ -3,6 +3,7 @@
 #include <iostream>
 
 using std::ostream;
+using std::wostream;
 
 template <typename K, typename V>
 class KVPair 
@@ -59,8 +60,7 @@ public:
 };
 
 template <typename K, typename V>
-ostream& operator <<(ostream &os, const KVPair<K, V> &pair) {
-	os << "(" << pair.key << ", " << pair.value << ")";
+wostream& operator <<(wostream &os, const KVPair<K, V> &pair) {
+	os << L"(" << pair.key << L", " << pair.value << L")";
 	return os;
 }
-

@@ -30,7 +30,7 @@ using std::wcout;
 Trie trie;
 ArrayList<wstring> palabras;
 ArrayList<wstring> ignorar;
-MaxHeap<int, string> top;
+MaxHeap<int, wstring> top;
 
 void menububu();
 
@@ -71,12 +71,12 @@ wstring conversor2(string palabra) {
 	return palabra_wstr;
 }
 
-void rellenarMaxHeap(DLinkedList<string> *palabras1) {
+void rellenarMaxHeap(DLinkedList<wstring> *palabras1) {
     palabras1->goToStart();
     while (!palabras1->atEnd()) {
 		int cantidad = trie.cantidadAparicion(palabras1->getElement());
-		string palabra = palabras1->getElement();
-		KVPair<int, string> kv(cantidad, palabra);
+		wstring palabra = palabras1->getElement();
+		KVPair<int, wstring> kv(cantidad, palabra);
 		top.insert(kv);
         palabras1->next();
     }
@@ -87,8 +87,8 @@ void rellenarMaxHeap(DLinkedList<string> *palabras1) {
 void sacarTop(int i) {
 
 	for (int j = 0; j < i; j++) {
-		KVPair<int, string> kv = top.removeFirst();
-		cout << "La palabra " << kv.getValue() << " se repite " << kv.getKey() << " veces." << endl;
+		KVPair<int, wstring> kv = top.removeFirst();
+		wcout << "La palabra " << kv.getValue() << " se repite " << kv.getKey() << " veces." << endl;
 	}
 }
 
@@ -105,15 +105,15 @@ void imprimirLias(ArrayList<int>* lineas) {
 	cout << endl;
 }
 
-void consultarPrefijo(string prefijo){
-	List<string>* palabrasL = trie.getMatches(prefijo);
+void consultarPrefijo(wstring prefijo){
+	List<wstring>* palabrasL = trie.getMatches(prefijo);
 	
 	palabrasL->goToStart();
 	while (!palabrasL->atEnd()) {
 		ArrayList<int>* lineas = trie.getLines(palabrasL->getElement());
 
 		cout << "La cantidad de veces que aparece la palabra: ";
-		cout << palabrasL->getElement();
+		wcout << palabrasL->getElement();
 		cout << " es " << trie.cantidadAparicion(palabrasL->getElement()) << endl;
 		cout << "En las lineas: " << endl;
 		imprimirLias(lineas);
@@ -122,9 +122,9 @@ void consultarPrefijo(string prefijo){
 	delete palabrasL;
 }
 
-void consultarPalabra(string palabra) {
+void consultarPalabra(wstring palabra) {
 	if (trie.containsWord(palabra)) {
-		cout << "La cantidad de veces que aparece la palabra: " << palabra << " es " << trie.cantidadAparicion(palabra) << endl;
+		wcout << "La cantidad de veces que aparece la palabra: " << palabra << " es " << trie.cantidadAparicion(palabra) << endl;
 		cout << "En las lineas: " << endl;
 		imprimirLias(trie.getLines(palabra));
 		
@@ -135,15 +135,15 @@ void consultarPalabra(string palabra) {
 }
 
 void consultarPorLargo(int largo) {
-	MinHeap<string>* words = new MinHeap<string>();
+	MinHeap<wstring>* words = new MinHeap<wstring>();
 	words = trie.getMatchesWithLength(largo);
 	
 
 	while (!words->isEmpty()) {
-		string element = words->removeFirst();
+		wstring element = words->removeFirst();
 		ArrayList<int>* lineas = trie.getLines(element);
 		cout << "La cantidad de veces que aparece la palabra: ";
-		cout << element;
+		wcout << element;
 		cout << " es " << trie.cantidadAparicion(element) << endl;
 		cout << "En las lineas: " << endl;
 		imprimirLias(lineas);
@@ -172,13 +172,13 @@ void menububu() {
 		cout << "Ingrese el prefijo" << endl;
 		wstring prefijo;
 		getline(wcin, prefijo);
-		consultarPrefijo(conversor(prefijo));
+		consultarPrefijo(prefijo);
 		menububu();
 	}
 	else if (opcion == "b") {
 		cout << "Ingrese la palabra" << endl;
-		string palabra;
-		getline(cin, palabra);
+		wstring palabra;
+		getline(wcin, palabra);
 		consultarPalabra(palabra);
 		cout << "chequea como se menea 5" << endl;
 		menububu();
@@ -230,11 +230,13 @@ void separarPalabras(wstring linea, int numDeLinea) {
 			if (palabra.size() > 0) {
 				
                 // Convertir wstring a string
+				/*
                 std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
                 std::string palabra_str = converter.to_bytes(palabra);
-                
+                */
                 // Insertar la palabra en el Trie
-                trie.insert(palabra_str, numDeLinea);
+                trie.insert(palabra, numDeLinea);
+
 
 				palabra = L"";
 			}

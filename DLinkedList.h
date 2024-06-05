@@ -113,13 +113,13 @@ public:
 		return i;
 	}
 	void print() {
-		cout << "[ ";
+		wcout << "[ ";
 		DNode<E>* temp = head->next;
 		while (temp != tail) {
-			cout << temp->element << " ";
+			wcout << temp->element << " ";
 			temp = temp->next;
 		}
-		cout << "]" << endl;
+		wcout << "]" << endl;
 	}
 	bool contains(E element) {
 		goToStart();

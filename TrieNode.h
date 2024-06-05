@@ -1,36 +1,41 @@
 #pragma once
 #include "HashTable.h"
 #include "ArrayList.h"
+#include <iostream>
+#include <string>
+
+using std::wstring;
+using std::wcout;
 
 class TrieNode {
 public:
 	bool isFinal;
 	int prefixCount;
 	ArrayList<int>* numsLine;
-	Dictionary<char, TrieNode*>* children;
+	Dictionary<wchar_t, TrieNode*>* children;
 
 	TrieNode() {
 		isFinal = false;
 		prefixCount = 0;
 		numsLine = new ArrayList<int>();
-		children = new HashTable<char, TrieNode*>();
+		children = new HashTable<wchar_t, TrieNode*>();
 	}
 	~TrieNode() {
 		delete children;
 	}
-	bool containsChild(char c) {
+	bool containsChild(wchar_t c) {
 		return children->contains(c);
 	}
-	TrieNode* getChild(char c) {
+	TrieNode* getChild(wchar_t c) {
 		return children->getValue(c);
 	}
-	void addChild(char c) {
+	void addChild(wchar_t c) {
 		children->insert(c, new TrieNode());
 	}
-	void removeChild(char c) {
+	void removeChild(wchar_t c) {
 		children->remove(c);
 	}
-	List<char>* getChildren() {
+	List<wchar_t>* getChildren() {
 		return children->getKeys();
 	}
 

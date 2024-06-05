@@ -1,5 +1,7 @@
 #include "KVPair.h"
 
+using std::wcout;
+
 template <typename K, typename V>
 class MaxHeap
 {
@@ -99,14 +101,11 @@ public:
         return size == 0;
     }
     void print() {
-        cout << "[ ";
+        wcout << "[ ";
         for (int i = 0; i < size; i++) {
-            cout << elements[i] << " ";
+            wcout << elements[i] << " ";
         }
-        cout << "]" << endl;
+        wcout << "]" << endl;
     }
-
-   
-
 
 };

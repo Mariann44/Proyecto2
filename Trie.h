@@ -8,7 +8,8 @@
 #include "ArrayList.h"
 #include "MinHeap.h"
 
-using std::string;
+using std::wstring;
+using std::wcout;
 using std::cout;
 using std::endl;
 using std::runtime_error;
@@ -17,7 +18,7 @@ class Trie {
 private:
 	TrieNode* root;
 
-	TrieNode* findNode(string word) {
+	TrieNode* findNode(wstring word) {
 		TrieNode* current = root;
 		for (unsigned int i = 0; i < word.size(); i++) {
 			if (!current->containsChild(word[i]))
@@ -27,10 +28,10 @@ private:
 		return current;
 	}
 	void clearAux(TrieNode* current) {
-		List<char>* children = current->getChildren();
+		List<wchar_t>* children = current->getChildren();
 		children->goToStart();
 		while (!children->atEnd()) {
-			char c = children->getElement();
+			wchar_t c = children->getElement();
 			TrieNode* child = current->getChild(c);
 			clearAux(child);
 			children->next();
@@ -38,12 +39,12 @@ private:
 		delete children;
 		delete current;
 	}
-	void getMatchesAux(TrieNode* current, string prefix, List<string>* words) {
+	void getMatchesAux(TrieNode* current, wstring prefix, List<wstring>* words) {
 		if (current->isFinal)
 			words->append(prefix);
-		List<char>* children = current->getChildren();
+		List<wchar_t>* children = current->getChildren();
 		for (children->goToStart(); !children->atEnd(); children->next()) {
-			char c = children->getElement();
+			wchar_t c = children->getElement();
 			getMatchesAux(current->getChild(c), prefix + c, words);
 		}
 		delete children;
@@ -57,7 +58,7 @@ public:
 		clear();
 		delete root;
 	}
-	void insert(string word, int line) {
+	void insert(wstring word, int line) {
 		if (containsWord(word)) {
 			TrieNode* current = findNode(word);
 			current->addNumLine(line);
@@ -76,22 +77,22 @@ public:
 		current->addNumLine(line);
 
 	}
-	bool containsWord(string word) {
+	bool containsWord(wstring word) {
 		TrieNode* current = findNode(word);
 		if (current == nullptr) return false;
 		return current->isFinal;
 	}
-	bool containsPrefix(string prefix) {
+	bool containsPrefix(wstring prefix) {
 		TrieNode* current = findNode(prefix);
 		if (current == nullptr) return false;
 		return true;
 	}
-	int prefixCount(string prefix) {
+	int prefixCount(wstring prefix) {
 		TrieNode* current = findNode(prefix);
 		if (current == nullptr) return 0;
 		return current->prefixCount;
 	}
-	void remove(string word) {
+	void remove(wstring word) {
 		if (!containsWord(word))
 			throw runtime_error("Word not found.");
 		TrieNode* current = root;
@@ -113,8 +114,8 @@ public:
 		clearAux(root);
 		root = new TrieNode();
 	}
-	List<string>* getMatches(string prefix) {
-		List<string>* words = new DLinkedList<string>();
+	List<wstring>* getMatches(wstring prefix) {
+		List<wstring>* words = new DLinkedList<wstring>();
 		TrieNode* current = findNode(prefix);
 		if (current != nullptr)
 			getMatchesAux(current, prefix, words);
@@ -124,13 +125,13 @@ public:
 		return root->prefixCount;
 	}
 	void print() {
-		List<string>* words = new DLinkedList<string>();
-		words = getMatches("");
+		List<wstring>* words = new DLinkedList<wstring>();
+		words = getMatches(L"");
 		words->print();
 		delete words;
 	}
 
-	void printLines(string word) {
+	void printLines(wstring word) {
 		TrieNode* current = findNode(word);
 		if (current == nullptr) {
 			cout << "Word not found." << endl;
@@ -139,7 +140,7 @@ public:
 		current->numsLine->print();
 	}
 
-	int cantidadAparicion(string word) {
+	int cantidadAparicion(wstring word) {
 		TrieNode* current = findNode(word);
 		if (current == nullptr) {
 			return 0;
@@ -147,7 +148,7 @@ public:
 		return current->numsLine->getSize();
 	}
 
-	ArrayList<int>* getLines(string word) {
+	ArrayList<int>* getLines(wstring word) {
 		TrieNode* current = findNode(word);
 		if (current == nullptr) {
 			return nullptr;
@@ -155,26 +156,26 @@ public:
 		return current->numsLine;
 	}
 
-	void getMatchesWithLengthAux(TrieNode* current, string prefix, MinHeap<string>* words, int length) {
+	void getMatchesWithLengthAux(TrieNode* current, wstring prefix, MinHeap<wstring>* words, int length) {
 		if (current->isFinal && prefix.size() == length)
 			words->insert(prefix);
-		List<char>* children = current->getChildren();
+		List<wchar_t>* children = current->getChildren();
 		for (children->goToStart(); !children->atEnd(); children->next()) {
-			char c = children->getElement();
+			wchar_t c = children->getElement();
 			getMatchesWithLengthAux(current->getChild(c), prefix + c, words, length);
 		}
 		delete children;
 	}
 
-	MinHeap<string>* getMatchesWithLength(int length) {
-		MinHeap<string>* words = new MinHeap<string>();
-		getMatchesWithLengthAux(root, "", words, length);
+	MinHeap<wstring>* getMatchesWithLength(int length) {
+		MinHeap<wstring>* words = new MinHeap<wstring>();
+		getMatchesWithLengthAux(root, L"", words, length);
 		return words;
 	}
 
-	DLinkedList<string>* getWords() {
-		DLinkedList<string>* words = new DLinkedList<string>();
-		getMatchesAux(root, "", words);
+	DLinkedList<wstring>* getWords() {
+		DLinkedList<wstring>* words = new DLinkedList<wstring>();
+		getMatchesAux(root, L"", words);
 		return words;
 	}
 
