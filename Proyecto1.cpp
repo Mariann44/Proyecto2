@@ -65,6 +65,12 @@ string conversor(wstring palabra) {
 	return palabra_str;
 }
 
+wstring conversor2(string palabra) {
+	std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
+	std::wstring palabra_wstr = converter.from_bytes(palabra);
+	return palabra_wstr;
+}
+
 void rellenarMaxHeap(DLinkedList<string> *palabras1) {
     palabras1->goToStart();
     while (!palabras1->atEnd()) {
@@ -77,6 +83,16 @@ void rellenarMaxHeap(DLinkedList<string> *palabras1) {
     top.print();
 
 }
+
+void sacarTop(int i) {
+
+	for (int j = 0; j < i; j++) {
+		KVPair<int, string> kv = top.removeFirst();
+		cout << "La palabra " << kv.getValue() << " se repite " << kv.getKey() << " veces." << endl;
+	}
+}
+
+
 
 void imprimirLias(ArrayList<int>* lineas) {
 	lineas->goToStart();
