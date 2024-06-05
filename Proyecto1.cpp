@@ -33,6 +33,7 @@ ArrayList<wstring> ignorar;
 MaxHeap<int, wstring> top;
 
 void menububu();
+void separarPalabras(wstring linea, int numDeLinea);
 
 
 int StringtoInt(string str)
@@ -185,6 +186,43 @@ void menuTop() {
 
 }
 
+void cargarNuevoArchivo() {
+	if (!palabras.isEmpty()) {
+		palabras.clear();
+		trie.clear();
+		top.clear();
+	}
+
+	cout << "Ingrese la ruta del archivo" << endl;
+	string ruta;
+	getline(cin, ruta);
+
+	std::locale::global(std::locale(""));
+	std::wifstream archivo(ruta);
+	archivo.imbue(std::locale());
+
+	if (!archivo.is_open()) {
+		wcout << L"No se pudo abrir el archivo o no existe." << endl;
+	}
+	else {
+		wcout << L"El archivo se abrió correctamente." << endl;
+		wstring linea;
+		while (getline(archivo, linea)) {
+			if (linea.size() > 0)
+				palabras.append(linea);
+		}
+
+		archivo.close();
+	}
+
+	palabras.goToStart();
+	while (!palabras.atEnd()) {
+		separarPalabras(palabras.getElement(), palabras.getPos());
+		palabras.next();
+	}
+
+}
+
 
 void menububu() {
 	cout << "Elija una opcion" << endl;
@@ -226,9 +264,8 @@ void menububu() {
 		menuTop();
 	}
 	else if (opcion == "e") {
-		cout << "Ingrese la ruta del archivo" << endl;
-		string ruta;
-		getline(cin, ruta);
+		cargarNuevoArchivo();
+		menububu();
 	}
 	else if (opcion == "f") {
 		cout << "Adios popo" << endl;
@@ -308,8 +345,10 @@ int main()
 	}
 	
 
-    wcout << "Bienvenido al proyecto de Indización de texto con Trais" << endl;
+    wcout << "Bienvenido al proyecto de Indización de texto con Tries" << endl;
     wcout << "Por favor metame la ruta del archivo ANSI" << endl;
+
+
 
     string ruta;
     getline(cin, ruta);
