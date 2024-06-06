@@ -46,7 +46,7 @@ private:
         primes->append(520679);
         primes->append(1041349);
         primes->append(2082709);
-        primes->goToPos(4);
+        primes->goToPos(0);
     }
 
     double loadFactor() {

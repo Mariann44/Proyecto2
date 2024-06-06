@@ -59,13 +59,13 @@ public:
 		delete root;
 	}
 	void insert(wstring word, int line) {
-		if (containsWord(word)) {
-			TrieNode* current = findNode(word);
+		TrieNode* current = findNode(word);
+		if (current != nullptr) {
 			current->addNumLine(line);
 			return;
 
 		}
-		TrieNode* current = root;
+		current = root;
 		for (unsigned int i = 0; i < word.size(); i++) {
 			current->prefixCount++;
 			if (!current->containsChild(word[i]))
@@ -148,7 +148,7 @@ public:
 		return current->numsLine->getSize();
 	}
 
-	ArrayList<int>* getLines(wstring word) {
+	List<int>* getLines(wstring word) {
 		TrieNode* current = findNode(word);
 		if (current == nullptr) {
 			return nullptr;

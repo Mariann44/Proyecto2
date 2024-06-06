@@ -131,6 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayList.h" />
+    <ClInclude Include="BSTDictionary.h" />
+    <ClInclude Include="BSTNode.h" />
+    <ClInclude Include="BSTree.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="DLinkedList.h" />
     <ClInclude Include="DNode.h" />
@@ -139,6 +142,9 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="MaxHeap.h" />
     <ClInclude Include="MinHeap.h" />
+    <ClInclude Include="SNode.h" />
+    <ClInclude Include="SplayDictionary.h" />
+    <ClInclude Include="SplayTree.h" />
     <ClInclude Include="Trie.h" />
     <ClInclude Include="TrieNode.h" />
   </ItemGroup>

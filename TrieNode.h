@@ -1,6 +1,9 @@
 #pragma once
 #include "HashTable.h"
 #include "ArrayList.h"
+#include "DlinkedList.h"
+#include "BSTDictionary.h"
+
 #include <iostream>
 #include <string>
 
@@ -11,14 +14,14 @@ class TrieNode {
 public:
 	bool isFinal;
 	int prefixCount;
-	ArrayList<int>* numsLine;
+	DLinkedList<int>* numsLine;
 	Dictionary<wchar_t, TrieNode*>* children;
 
 	TrieNode() {
 		isFinal = false;
 		prefixCount = 0;
-		numsLine = new ArrayList<int>();
-		children = new HashTable<wchar_t, TrieNode*>();
+		numsLine = new DLinkedList<int>();
+		children = new BSTDictionary<wchar_t, TrieNode*>();
 	}
 	~TrieNode() {
 		delete children;

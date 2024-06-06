@@ -17,6 +17,10 @@
 #include "MinHeap.h" 
 #include "MaxHeap.h"
 #include "KVPair.h"
+#include <stdio.h>
+#include <fcntl.h>
+#include <io.h>
+
 
 using std::cout;
 using std::endl;
@@ -27,10 +31,12 @@ using std::wcin;
 using std::wstring;
 using std::wcout;
 
+
 Trie trie;
 ArrayList<wstring> palabras;
-ArrayList<wstring> ignorar;
+ArrayList<wstring> ignorar; //con trie
 MaxHeap<int, wstring> top;
+
 
 void menububu();
 void separarPalabras(wstring linea, int numDeLinea);
@@ -102,7 +108,7 @@ void sacarTop(int i) {
 
 
 
-void imprimirLias(ArrayList<int>* lineas) {
+void imprimirLias(List<int>* lineas) {
 	lineas->goToStart();
 	while (!lineas->atEnd()) {
 		cout << "Linea " << lineas->getElement() << ": ";
@@ -118,7 +124,7 @@ void consultarPrefijo(wstring prefijo){
 	
 	palabrasL->goToStart();
 	while (!palabrasL->atEnd()) {
-		ArrayList<int>* lineas = trie.getLines(palabrasL->getElement());
+		List<int>* lineas = trie.getLines(palabrasL->getElement());
 
 		cout << "La cantidad de veces que aparece la palabra: ";
 		wcout << palabrasL->getElement();
@@ -149,7 +155,7 @@ void consultarPorLargo(int largo) {
 
 	while (!words->isEmpty()) {
 		wstring element = words->removeFirst();
-		ArrayList<int>* lineas = trie.getLines(element);
+		List<int>* lineas = trie.getLines(element);
 		cout << "La cantidad de veces que aparece la palabra: ";
 		wcout << element;
 		cout << " es " << trie.cantidadAparicion(element) << endl;
@@ -244,9 +250,10 @@ void menububu() {
 		menububu();
 	}
 	else if (opcion == "b") {
-		cout << "Ingrese la palabra" << endl;
+		wcout << "Ingrese la palabra" << endl;
 		wstring palabra;
 		getline(wcin, palabra);
+		wcout << palabra << endl;
 		consultarPalabra(palabra);
 		cout << "chequea como se menea 5" << endl;
 		menububu();
@@ -284,7 +291,6 @@ wchar_t aMinuscula(wchar_t vocalTildada) {
 
 
 void separarPalabras(wstring linea, int numDeLinea) {
-	setlocale(LC_ALL, "es_ES.utf8");
 	wstring palabra = L"";
 	for (unsigned int i = 0; i < linea.size(); i++) {
 		
@@ -296,13 +302,8 @@ void separarPalabras(wstring linea, int numDeLinea) {
 		}
 		else {
 			if (palabra.size() > 0) {
-				
-                // Convertir wstring a string
-				/*
-                std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
-                std::string palabra_str = converter.to_bytes(palabra);
-                */
-                // Insertar la palabra en el Trie
+
+			
                 trie.insert(palabra, numDeLinea);
 
 
@@ -310,6 +311,9 @@ void separarPalabras(wstring linea, int numDeLinea) {
 			}
 		}
 	}
+	if (palabra.size() > 0)
+		trie.insert(palabra, numDeLinea);
+
 }
 
 
@@ -317,10 +321,14 @@ void separarPalabras(wstring linea, int numDeLinea) {
 
 int main()
 {
+	
 	setlocale(LC_ALL, "spanish");
 	SetConsoleCP(1252);
 	SetConsoleOutputCP(1252);
 	
+
+	
+
 
 	//cout << "PUNTO 1" << endl;
 	
@@ -345,8 +353,8 @@ int main()
 	}
 	
 
-    wcout << "Bienvenido al proyecto de Indización de texto con Tries" << endl;
-    wcout << "Por favor metame la ruta del archivo ANSI" << endl;
+    wcout << L"Bienvenido al proyecto de Indización de texto con Tries" << endl;
+    wcout << L"Por favor metame la ruta del archivo ANSI" << endl;
 
 
 
@@ -355,7 +363,7 @@ int main()
 
 	std::locale::global(std::locale(""));
 	std::wifstream archivo(ruta);
-	archivo.imbue(std::locale());
+	
 
 	if (!archivo.is_open()) {
 		wcout << L"No se pudo abrir el archivo o no existe." << endl;
@@ -366,24 +374,19 @@ int main()
 			palabras.clear();
 		}
 		wstring linea;
+		int num = 0;
 		while (getline(archivo, linea)) {
-			if (linea.size() > 0)
-				palabras.append(linea);
+			palabras.append(linea);
+			separarPalabras(linea, num);
+			num++;
 		}
+		
 
 		archivo.close();
 	}
 
 
-	
-	
-	palabras.goToStart();
-	while (!palabras.atEnd()) {
 
-		separarPalabras(palabras.getElement(), palabras.getPos());
-		palabras.next();
-	}
-	cout << "" << endl;
 
 	menububu();
 
