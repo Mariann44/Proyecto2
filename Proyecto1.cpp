@@ -34,7 +34,7 @@ using std::wcout;
 
 Trie trie;
 ArrayList<wstring> palabras;
-ArrayList<wstring> ignorar; //con trie
+Trie ignorar; //con trie
 MaxHeap<int, wstring> top;
 
 
@@ -66,19 +66,7 @@ int StringtoInt(string str)
 	
 }
 
-string conversor(wstring palabra) {
-	std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
-	std::string palabra_str = converter.to_bytes(palabra);
-	return palabra_str;
-}
-
-wstring conversor2(string palabra) {
-	std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
-	std::wstring palabra_wstr = converter.from_bytes(palabra);
-	return palabra_wstr;
-}
-
-void rellenarMaxHeap(DLinkedList<wstring> *palabras1) {
+void rellenarMaxHeap(List<wstring> *palabras1) {
     palabras1->goToStart();
     while (!palabras1->atEnd()) {
 		int cantidad = trie.cantidadAparicion(palabras1->getElement());
@@ -97,7 +85,7 @@ void sacarTop(int i) {
 	for (int j = 0; j < i; j++) {
 		KVPair<int, wstring> kv = top.removeFirst();
 		wstring palabra = kv.getValue();
-		if (!ignorar.contains(palabra)) {
+		if (ignorar.containsWord(palabra) == false) {
 			wcout << "La palabra " << kv.getValue() << " se repite " << kv.getKey() << " veces." << endl;
 		}
 		else {
@@ -125,7 +113,6 @@ void consultarPrefijo(wstring prefijo){
 	palabrasL->goToStart();
 	while (!palabrasL->atEnd()) {
 		List<int>* lineas = trie.getLines(palabrasL->getElement());
-
 		cout << "La cantidad de veces que aparece la palabra: ";
 		wcout << palabrasL->getElement();
 		cout << " es " << trie.cantidadAparicion(palabrasL->getElement()) << endl;
@@ -182,7 +169,7 @@ void menuTop() {
 
 	}
 	else if (opcion == "b") {
-		cout << "Adios poposao" << endl;
+		cout << "Adios...por ahora" << endl;
 		menububu();
 	}
 	else {
@@ -213,21 +200,18 @@ void cargarNuevoArchivo() {
 	else {
 		wcout << L"El archivo se abrió correctamente." << endl;
 		wstring linea;
+		int num =0;
 		while (getline(archivo, linea)) {
-			if (linea.size() > 0)
-				palabras.append(linea);
+			palabras.append(linea);
+			separarPalabras(linea, num);
+			num++;
 		}
-
 		archivo.close();
 	}
 
-	palabras.goToStart();
-	while (!palabras.atEnd()) {
-		separarPalabras(palabras.getElement(), palabras.getPos());
-		palabras.next();
 	}
 
-}
+
 
 
 void menububu() {
@@ -275,7 +259,7 @@ void menububu() {
 		menububu();
 	}
 	else if (opcion == "f") {
-		cout << "Adios popo" << endl;
+		cout << "Adios..por ahora" << endl;
 		return;
 	}
 	else {
@@ -293,20 +277,14 @@ wchar_t aMinuscula(wchar_t vocalTildada) {
 void separarPalabras(wstring linea, int numDeLinea) {
 	wstring palabra = L"";
 	for (unsigned int i = 0; i < linea.size(); i++) {
-		
-		wchar_t letra = aMinuscula(linea[i]);
+	wchar_t letra = aMinuscula(linea[i]);
+
 		if (iswalpha(letra)) { 
-			
 			palabra += letra;
-			
 		}
 		else {
 			if (palabra.size() > 0) {
-
-			
                 trie.insert(palabra, numDeLinea);
-
-
 				palabra = L"";
 			}
 		}
@@ -314,6 +292,25 @@ void separarPalabras(wstring linea, int numDeLinea) {
 	if (palabra.size() > 0)
 		trie.insert(palabra, numDeLinea);
 
+}
+
+void separarPalabrasIgnorar(wstring linea, int numDeLinea) {
+	wstring palabra = L"";
+	for (unsigned int i = 0; i < linea.size(); i++) {
+		wchar_t letra = aMinuscula(linea[i]);
+
+		if (iswalpha(letra)) {
+			palabra += letra;
+		}
+		else {
+			if (palabra.size() > 0) {
+				ignorar.insert(palabra, numDeLinea);
+				palabra = L"";
+			}
+		}
+	}
+	if (palabra.size() > 0)
+		trie.insert(palabra, numDeLinea);
 }
 
 
@@ -332,7 +329,7 @@ int main()
 
 	//cout << "PUNTO 1" << endl;
 	
-	string rutaArchivoIgnorado = "C:\\Users\\Lenovo\\Desktop\\Ignorar.txt";
+	string rutaArchivoIgnorado = "ignorar.txt";
 	std::wifstream archivoIgnorado(rutaArchivoIgnorado);
 	archivoIgnorado.imbue(std::locale());
 
@@ -341,17 +338,14 @@ int main()
 		cout << "No se pudo abrir el archivo o no existe." << endl;
 	}
 	else {
-		if (!ignorar.isEmpty()) {
-			ignorar.clear();
-		}
 		wstring linea;
 		while (getline(archivoIgnorado, linea)) {
-			if (linea.size() > 0)
-				ignorar.append(linea);
+			ignorar.insert(linea, 1);
 		}
 		archivoIgnorado.close();
 	}
 	
+
 
     wcout << L"Bienvenido al proyecto de Indización de texto con Tries" << endl;
     wcout << L"Por favor metame la ruta del archivo ANSI" << endl;
@@ -386,7 +380,7 @@ int main()
 	}
 
 
-
+	
 
 	menububu();
 

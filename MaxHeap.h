@@ -1,6 +1,14 @@
+#pragma once
+#define DEFAULT_MAX_SIZE 32768
+
 #include "KVPair.h"
+#include <stdexcept>
+#include <iostream>
 
 using std::wcout;
+using std::runtime_error;
+using std::cout;
+using std::endl;
 
 template <typename K, typename V>
 class MaxHeap
@@ -67,8 +75,11 @@ public:
 
 
     void insert(KVPair<K, V> element) {
-        if (size == max)
+        if (size == max) {
+            cout << "heap está llenito" << endl;
             throw runtime_error("Heap is full.");
+
+        }
         elements[size] = element;
         size++;
         siftUp(size - 1);
