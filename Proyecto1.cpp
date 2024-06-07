@@ -120,6 +120,7 @@ void consultarPrefijo(wstring prefijo){
 		imprimirLias(lineas);
 		palabrasL->next();
 	}
+	cout << "no se encontro el prefijo" << endl;
 	delete palabrasL;
 }
 
@@ -294,24 +295,6 @@ void separarPalabras(wstring linea, int numDeLinea) {
 
 }
 
-void separarPalabrasIgnorar(wstring linea, int numDeLinea) {
-	wstring palabra = L"";
-	for (unsigned int i = 0; i < linea.size(); i++) {
-		wchar_t letra = aMinuscula(linea[i]);
-
-		if (iswalpha(letra)) {
-			palabra += letra;
-		}
-		else {
-			if (palabra.size() > 0) {
-				ignorar.insert(palabra, numDeLinea);
-				palabra = L"";
-			}
-		}
-	}
-	if (palabra.size() > 0)
-		trie.insert(palabra, numDeLinea);
-}
 
 
 
