@@ -1,3 +1,25 @@
+/*Proyecto realizado por : Valeria Marín Barquero y Gabriel Arguedas Solano
+*
+* 
+* Implementación de un MaxHeap.
+* Un MaxHeap es una estructura de datos que permite almacenar un conjunto de elementos y mantener el elemento más grande en la raíz.
+* Aquí están las funcionalidades principales de la clase MaxHeap:
+* funciones:
+* insert(KVPair<K, V> element): Inserta un elemento en el heap.
+* first(): Devuelve el elemento más grande del heap.
+* removeFirst(): Elimina y devuelve el elemento más grande del heap.
+* remove(int pos): Elimina y devuelve el elemento en la posición dada.
+* clear(): Elimina todos los elementos del heap.
+* getSize(): Devuelve la cantidad de elementos en el heap.
+* isEmpty(): Devuelve true si el heap está vacío.
+* print(): Imprime todos los elementos en el heap.
+* 
+*/
+
+
+
+
+
 #pragma once
 #define DEFAULT_MAX_SIZE 32768
 

@@ -1,3 +1,23 @@
+/*Proyecto realizado por : Valeria Marín Barquero y Gabriel Arguedas Solano
+*
+*Elaborada durante lecciones de Estructuras de Datos por el profesor Mauricio Áviles
+* 
+* Implementación de un KVPair.
+* Un KVPair es una estructura de datos que permite almacenar un par de valores, una clave y un valor.
+* Aquí están las funcionalidades principales de la clase KVPair:
+* funciones:
+* getValue(): Devuelve el valor del par.
+* getKey(): Devuelve la clave del par.
+* operator =: Asigna un par a otro.
+* operator ==: Compara si dos pares son iguales.
+* operator <: Compara si un par es menor que otro.
+* operator <=: Compara si un par es menor o igual que otro.	
+* operator >: Compara si un par es mayor que otro.
+* operator >=: Compara si un par es mayor o igual que otro.
+* operator !=: Compara si dos pares son diferentes.
+* 
+*/
+
 #pragma once
 
 #include <iostream>

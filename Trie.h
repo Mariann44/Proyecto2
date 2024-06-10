@@ -1,3 +1,29 @@
+/*Proyecto realizado por : Valeria Marín Barquero y Gabriel Arguedas Soloano
+*
+*Estructura elaborada durante lecciones de Estructuras de Datos por el profesor Mauricio Áviles
+* 
+* Implementación de un Trie.
+* Un Trie es una estructura de datos que permite almacenar un conjunto de palabras y realizar búsquedas de palabras o prefijos de palabras.
+* Aquí están las funcionalidades principales de la clase Trie:
+* funciones:
+* insert(wstring word, int line): Inserta una palabra en el Trie.
+* containsWord(wstring word): Devuelve true si la palabra está en el Trie.
+* containsPrefix(wstring prefix): Devuelve true si el prefijo está en el Trie.
+* prefixCount(wstring prefix): Devuelve la cantidad de palabras que tienen el prefijo dado.
+* remove(wstring word): Elimina una palabra del Trie.
+* clear(): Elimina todas las palabras del Trie.
+* getMatches(wstring prefix): Devuelve una lista con todas las palabras que tienen el prefijo dado.
+* getSize(): Devuelve la cantidad de palabras en el Trie.
+* print(): Imprime todas las palabras en el Trie.
+* printLines(wstring word): Imprime las líneas en las que aparece una palabra.
+* cantidadAparicion(wstring word): Devuelve la cantidad de veces que aparece una palabra.
+* getLines(wstring word): Devuelve una lista con las líneas en las que aparece una palabra.
+* getMatchesWithLength(int length): Devuelve una lista con todas las palabras de un largo dado.
+* getWords(): Devuelve una lista con todas las palabras en el Trie.
+* 
+* 
+*/
+
 #pragma once
 
 #include <string>

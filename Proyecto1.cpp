@@ -1,5 +1,27 @@
-// Proyecto1.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
-//
+/*Proyecto realizado por : Valeria Marín Barquero y Gabriel Arguedas Solano
+*
+*Estructura elaborada durante lecciones de Estructuras de Datos por el profesor Mauricio Áviles
+* 
+* Proyecto de Indización de texto con Tries
+* 
+* funciones:
+* menububu(): Este es el menu donde el usuario puede elegir entre las opciones de consulta.
+* separarPalabras(wstring linea, int numDeLinea): Este metodo se encarga de separar las palabras de una linea y agregarlas al trie.
+* StringtoInt(string str): Este metodo convierte un string a un entero.
+* rellenarMaxHeap(List<wstring> *palabras1): Este metodo se encarga de rellenar el maxHeap con las palabras del trie.
+* sacarTop(int i): Este metodo se encarga de sacar las i palabras mas repetidas del maxHeap.
+* imprimirLias(List<int>* lineas): Este metodo imprime las lineas donde se encuentra una palabra.
+* consultarPrefijo(wstring prefijo): Este metodo se encarga de consultar las palabras que tienen un prefijo dado.
+* consultarPalabra(wstring palabra): Este metodo se encarga de consultar una palabra dada.
+* consultarPorLargo(int largo): Este metodo se encarga de consultar las palabras que tienen un largo dado.
+* menuTop(): Este es el menu donde el usuario puede elegir la cantidad de palabras que desea ver.
+* cargarNuevoArchivo(): Este metodo se encarga de cargar un nuevo archivo.
+* main(): Este es el metodo principal del programa.
+* 
+*/
+
+
+
 #define NOMINMAX
 
 #include <Windows.h>
@@ -167,7 +189,6 @@ void menuTop() {
 		getline(cin, cantidad);
 		sacarTop(StringtoInt(cantidad));
 		menuTop();
-
 	}
 	else if (opcion == "b") {
 		cout << "Adios...por ahora" << endl;

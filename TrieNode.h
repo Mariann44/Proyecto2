@@ -1,3 +1,28 @@
+/*Proyecto realizado por : Valeria Marín Barquero y Gabriel Arguedas Solano
+*
+*Estructura elaborada durante lecciones de Estructuras de Datos por el profesor Mauricio Áviles
+* 
+* Implementación de un TrieNode.
+* Un TrieNode es un nodo que se utiliza en un Trie. Contiene un diccionario de hijos, una bandera que indica si es una palabra final, un contador de prefijos y una lista de líneas.
+* Aquí están las funcionalidades principales de la clase TrieNode:
+* funciones:
+* containsChild(wchar_t c): Devuelve true si el nodo tiene un hijo con el caracter dado.
+* getChild(wchar_t c): Devuelve el hijo con el caracter dado.
+* addChild(wchar_t c): Agrega un hijo con el caracter dado.
+* removeChild(wchar_t c): Elimina el hijo con el caracter dado.
+* getChildren(): Devuelve una lista con los caracteres de los hijos.
+* getIsFinal(): Devuelve true si el nodo es una palabra final.
+* setIsFinal(bool isFinal): Establece si el nodo es una palabra final.
+* getPrefixCount(): Devuelve la cantidad de prefijos que tienen la palabra que termina en este nodo.
+* setPrefixCount(int prefixCount): Establece la cantidad de prefijos que tienen la palabra que termina en este nodo.
+* increaseCount(): Incrementa el contador de prefijos.
+* decreaseCount(): Decrementa el contador de prefijos.
+* addNumLine(int numLine): Agrega una línea a la lista de líneas.
+* 
+*/
+
+
+
 #pragma once
 #include "HashTable.h"
 #include "ArrayList.h"

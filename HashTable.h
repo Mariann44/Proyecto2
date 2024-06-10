@@ -1,3 +1,27 @@
+/*Proyecto realizado por : Valeria Marín Barquero y Gabriel Arguedas Solano
+*
+*Estructura elaborada durante lecciones de Estructuras de Datos por el profesor Mauricio Áviles
+* 
+* Implementación de un HashTable.
+* Un HashTable es una estructura de datos que permite almacenar pares de valores, una clave y un valor, en una tabla de dispersión.
+* Aquí están las funcionalidades principales de la clase HashTable:
+* funciones:
+* insert(K key, V value): Inserta un par clave-valor en la tabla.
+* remove(K key): Elimina y devuelve el valor asociado con la clave dada.
+* getValue(K key): Devuelve el valor asociado con la clave dada.
+* setValue(K key, V value): Reemplaza el valor asociado con la clave dada.
+* contains(K key): Devuelve true si la clave está en la tabla.
+* getKeys(): Devuelve una lista con todas las claves en la tabla.
+* getValues(): Devuelve una lista con todos los valores en la tabla.
+* getSize(): Devuelve la cantidad de elementos en la tabla.
+* print(): Imprime todos los elementos en la tabla.
+* 
+* 
+*/
+
+
+
+
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 

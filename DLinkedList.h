@@ -1,3 +1,33 @@
+/*Proyecto realizado por : Valeria Marín Barquero y Gabriel Arguedas Solano
+*
+*Estructura elaborada durante lecciones de Estructuras de Datos por el profesor Mauricio Áviles
+* 
+* Implementación de una lista doblemente enlazada.
+* Una lista doblemente enlazada es una estructura de datos que permite almacenar un conjunto de elementos y acceder a ellos de manera secuencial.
+* Aquí están las funcionalidades principales de la clase DLinkedList:
+* funciones:
+* insert(E element): Inserta un elemento en la lista.
+* append(E element): Inserta un elemento al final de la lista.
+* set(E element): Reemplaza el elemento actual con el elemento dado.
+* remove(): Elimina el elemento actual y devuelve su valor.
+* clear(): Elimina todos los elementos de la lista.
+* getElement(): Devuelve el elemento actual.
+* goToStart(): Mueve la posición actual al inicio de la lista.
+* goToEnd(): Mueve la posición actual al final de la lista.
+* goToPos(int pos): Mueve la posición actual a la posición dada.
+* next(): Mueve la posición actual al siguiente elemento.
+* previous(): Mueve la posición actual al elemento anterior.
+* atStart(): Devuelve true si la posición actual está al inicio de la lista.
+* atEnd(): Devuelve true si la posición actual está al final de la lista.
+* getSize(): Devuelve la cantidad de elementos en la lista.
+* getPos(): Devuelve la posición actual.
+* print(): Imprime todos los elementos en la lista.
+* contains(E element): Devuelve true si el elemento está en la lista.
+* 
+*/
+
+
+
 #pragma once
 #include <stdexcept>
 #include <iostream>
